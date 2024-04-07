@@ -4,9 +4,7 @@ import { signInWithCredential } from "firebase/auth";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
-import Inicial from "./Inicial";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 export default function Login({ navigation }) {
   //   GoogleSignin.configure({
@@ -17,19 +15,6 @@ export default function Login({ navigation }) {
   const [senha, setSenha] = useState("");
 
   const [emailGoogle, setEmailGoogle] = useState("");
-
-  //   const loginGoogle = async () => {
-  //     try {
-  //       await GoogleSignin.hasPlayServices();
-  //       const userInfo = await GoogleSignin.signIn();
-  //       setEmailGoogle(userInfo.user.email);
-  //       await AsyncStorage.setItem("email", userInfo.user.email);
-  //       // Após o login com sucesso, você pode realizar ações como salvar o email do usuário ou navegar para outra tela
-  //       navigation.replace("AreaLogada");
-  //     } catch (error) {
-  //       console.error("Erro ao fazer login com o Google:", error);
-  //     }
-  //   };
 
   const login = async () => {
     if (!email || !senha) {
@@ -79,9 +64,6 @@ export default function Login({ navigation }) {
               color="gray"
               onPress={() => navigation.navigate("RecuperarSenha")}
             ></Button>
-          </View>
-          <View style={estilos.botoes}>
-            <Button title="Signin With Google" color="green" />
           </View>
         </View>
       </View>
