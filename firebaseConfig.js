@@ -1,11 +1,6 @@
 import { initializeApp } from "firebase/app";
-
-// Optionally import the services that you want to use
-import { getAuth, GoogleAuthProvider } from "firebase/auth"; // Importe o serviço de autenticação do Firebase
-// import {...} from "firebase/database";
-// import {...} from "firebase/firestore";
-// import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -16,8 +11,15 @@ const firebaseConfig = {
   messagingSenderId: "619328327967",
   appId: "1:619328327967:web:0d0856de25bbe25003202a",
 };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
 
-export { auth, googleProvider }; // Exporte o serviço de autenticação
+// Initialize Firebase app
+const app = initializeApp(firebaseConfig);
+
+// Initialize authentication with AsyncStorage persistence
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
+
+// const googleProvider = new GoogleAuthProvider();
+
+export { auth }; // Exporte o serviço de autenticação

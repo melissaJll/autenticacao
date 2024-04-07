@@ -59,11 +59,10 @@ export default function Perfil() {
         placeholder="Nome"
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, { backgroundColor: "lightgray" }]}
         value={email}
-        onChangeText={setEmail}
         placeholder="E-mail"
-        keyboardType="email-address"
+        editable={false}
       />
 
       <Button title="Salvar" onPress={salvarPerfil} />
