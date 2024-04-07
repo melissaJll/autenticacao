@@ -13,9 +13,9 @@ export default function Login({ navigation }) {
   //     //   Insira o seu Web Client ID aqui
   //     webClientId: "cycletrack-ts.firebaseapp.com",
   //   });
-
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+
   const [emailGoogle, setEmailGoogle] = useState("");
 
   //   const loginGoogle = async () => {
@@ -37,12 +37,26 @@ export default function Login({ navigation }) {
       return;
     }
     try {
-      signInWithEmailAndPassword(auth, email, senha);
+      await signInWithEmailAndPassword(auth, email, senha);
       navigation.replace("AreaLogada");
     } catch (error) {
       console.error(error.code);
+      let mensagem;
+      switch (error.code) {
+        case "auth/invalid-credential":
+          mensagem = "Dados inválidos!";
+          break;
+        case "auth/invalid-email":
+          mensagem = "Endereço de e-mail inválido!";
+          break;
+        default:
+          mensagem = "Houve um erro, tente mais tarde!";
+          break;
+      }
+      Alert.alert("Ops!", mensagem);
     }
   };
+
   return (
     <>
       <View style={estilos.container}>
@@ -60,6 +74,11 @@ export default function Login({ navigation }) {
           />
           <View style={estilos.botoes}>
             <Button onPress={login} title="Entre" color="green" />
+            <Button
+              title="Recuperar Senha"
+              color="gray"
+              onPress={() => navigation.navigate("RecuperarSenha")}
+            ></Button>
           </View>
           <View style={estilos.botoes}>
             <Button title="Signin With Google" color="green" />

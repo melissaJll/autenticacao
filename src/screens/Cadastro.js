@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
-import { auth } from "../../firebase.config";
+import { auth } from "../../firebaseConfig";
 
 export default function Cadastro({ navigation }) {
   const [email, setEmail] = useState("");
