@@ -12,6 +12,10 @@ import Login from "./src/screens/Login";
 
 import AreaLogada from "./src/screens/AreaLogada";
 
+import Perfil from "./src/screens/Perfil";
+
+import RecuperarSenha from "./src/screens/RecuperarSenha";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -54,6 +58,16 @@ export default function App() {
           <Stack.Screen
             name="AreaLogada"
             component={AreaLogada}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Perfil"
+            component={Perfil}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RecuperarSenha"
+            component={RecuperarSenha}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

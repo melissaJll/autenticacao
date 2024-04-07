@@ -30,6 +30,11 @@ export default function AreaLogada({ navigation }) {
       <View style={estilos.geral}>
         <Text>Você está na área logada.</Text>
       </View>
+      <Button
+        onPress={() => navigation.navigate("Perfil")}
+        title="perfil"
+        color="#D35400"
+      />
     </View>
   );
 }
