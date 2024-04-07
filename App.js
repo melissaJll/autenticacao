@@ -1,20 +1,69 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
+
+import { NavigationContainer } from "@react-navigation/native";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import Inicial from "./src/screens/Inicial";
+
+import Cadastro from "./src/screens/Cadastro";
+
+import Login from "./src/screens/Login";
+
+import AreaLogada from "./src/screens/AreaLogada";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={estilos.containerSafe}>
+      <StatusBar />
+
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Inicial">
+          <Stack.Screen
+            name="Inicial"
+            component={Inicial}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              title: "Entre com suas credenciais",
+
+              headerStyle: { backgroundColor: "green" },
+
+              headerTintColor: "#fff",
+            }}
+          />
+
+          <Stack.Screen
+            name="Cadastro"
+            component={Cadastro}
+            options={{
+              title: "Cadastre-se para ter acesso",
+
+              headerStyle: { backgroundColor: "blue" },
+
+              headerTintColor: "#fff",
+            }}
+          />
+
+          <Stack.Screen
+            name="AreaLogada"
+            component={AreaLogada}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
+const estilos = StyleSheet.create({
+  containerSafe: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
