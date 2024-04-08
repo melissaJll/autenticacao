@@ -26,7 +26,6 @@ export default function Inicial({ navigation }) {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

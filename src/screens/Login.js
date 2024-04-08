@@ -74,7 +74,7 @@ export default function Login({ navigation }) {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgreen",
+
     alignItems: "center",
     justifyContent: "center",
   },

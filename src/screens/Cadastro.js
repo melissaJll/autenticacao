@@ -94,7 +94,6 @@ export default function Cadastro({ navigation }) {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
     alignItems: "center",
     justifyContent: "center",
   },

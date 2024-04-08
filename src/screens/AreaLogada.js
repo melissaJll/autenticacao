@@ -42,7 +42,6 @@ export default function AreaLogada({ navigation }) {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FCF3CF",
     padding: 16,
   },
   topo: {
