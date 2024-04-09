@@ -9,6 +9,7 @@ import {
   Pressable,
   Text,
   Image,
+  StatusBar,
 } from "react-native";
 import { auth } from "../../firebaseConfig";
 import * as ImagePicker from "expo-image-picker";
@@ -147,6 +148,7 @@ export default function Cadastro({ navigation }) {
 
   return (
     <View style={estilos.container}>
+      <StatusBar barStyle="dark-content" />
       <View style={estilos.formulario}>
         {imagem && (
           <Image source={{ uri: imagem }} style={{ width: 300, height: 300 }} />

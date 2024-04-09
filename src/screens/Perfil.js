@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
+  StatusBar,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { auth } from "../../firebaseConfig";
@@ -63,6 +64,8 @@ export default function Perfil() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#A8A0D0" />
+
       <View style={styles.containerFoto}>
         <Image
           source={{ uri: fotoPerfil || "https://via.placeholder.com/300" }}

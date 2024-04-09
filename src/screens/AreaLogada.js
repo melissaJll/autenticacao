@@ -1,4 +1,12 @@
-import { Button, StyleSheet, Text, View, Image, Pressable } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  StatusBar,
+} from "react-native";
 
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
@@ -26,7 +34,8 @@ export default function AreaLogada({ navigation }) {
 
   return (
     <View style={estilos.container}>
-      <Pressable>
+      <StatusBar barStyle="dark-content" />
+      <Pressable onPress={() => navigation.navigate("Perfil")} title="Perfil">
         <Image
           source={{ uri: photoURL || "https://via.placeholder.com/150" }}
           style={[estilos.image, { borderRadius: 85, backgroundColor: "gray" }]}

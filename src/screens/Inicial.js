@@ -1,8 +1,16 @@
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+} from "react-native";
 
 export default function Inicial({ navigation }) {
   return (
     <View style={estilos.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#A8A0D0" />
       <View style={estilos.introducao}>
         <Text style={estilos.subtitulo}>Perfil com Firebase</Text>
       </View>
