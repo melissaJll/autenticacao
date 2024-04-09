@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, Image, Pressable } from "react-native";
 
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
@@ -9,6 +9,11 @@ export default function AreaLogada({ navigation }) {
 
   const { email } = auth.currentUser;
   console.log(email);
+
+  const { displayName } = auth.currentUser;
+  console.log(displayName);
+
+  const { photoURL } = auth.currentUser;
 
   const logout = async () => {
     try {
@@ -21,6 +26,13 @@ export default function AreaLogada({ navigation }) {
 
   return (
     <View style={estilos.container}>
+      <Pressable>
+        <Image
+          source={{ uri: photoURL || "https://via.placeholder.com/150" }}
+          style={[estilos.image, { borderRadius: 85, backgroundColor: "gray" }]}
+        />
+      </Pressable>
+
       <View style={estilos.topo}>
         <View style={estilos.geral}>
           <Text>Você está na área logada.</Text>
@@ -28,6 +40,7 @@ export default function AreaLogada({ navigation }) {
         <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
         <Text>Seu email é: </Text>
         <Text style={{ fontWeight: "bold" }}>{email}</Text>
+        <Text style={{ fontWeight: "bold" }}>{displayName}</Text>
         <Button
           onPress={() => navigation.navigate("Perfil")}
           title="Perfil"
@@ -50,5 +63,15 @@ const estilos = StyleSheet.create({
   bemVindo: {
     fontSize: 24,
     marginVertical: 16,
+  },
+  image: {
+    width: 64,
+    height: 64,
+    borderRadius: 50,
+    marginTop: 20,
+    position: "absolute",
+
+    right: 20,
+    top: 20,
   },
 });

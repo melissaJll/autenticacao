@@ -15,6 +15,7 @@ import { updateEmail, updateProfile } from "firebase/auth";
 export default function Perfil() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [fotoPerfil, setfotoPerfil] = useState("");
 
   useEffect(() => {
     const carregarUsuarioAtual = async () => {
@@ -22,6 +23,7 @@ export default function Perfil() {
       if (usuarioAtual) {
         setNome(usuarioAtual.displayName || "");
         setEmail(usuarioAtual.email || "");
+        setfotoPerfil(usuarioAtual.photoURL || "");
       }
     };
 
@@ -63,7 +65,7 @@ export default function Perfil() {
     <View style={styles.container}>
       <View style={styles.containerFoto}>
         <Image
-          source={{ uri: "https://via.placeholder.com/300" || profilePicture }}
+          source={{ uri: fotoPerfil || "https://via.placeholder.com/300" }}
           style={[styles.image, { borderRadius: 85, backgroundColor: "gray" }]}
         />
         <Pressable style={styles.botao}>
@@ -84,8 +86,9 @@ export default function Perfil() {
           editable={false}
         />
       </View>
-
-      <Button title="Salvar" onPress={salvarPerfil} />
+      <Pressable style={styles.botao} onPress={salvarPerfil}>
+        <Text>Salvar</Text>
+      </Pressable>
     </View>
   );
 }
@@ -105,25 +108,27 @@ const styles = StyleSheet.create({
   //   alignItems: "center",
   // },
   input: {
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 16,
-    width: "95%",
+    width: 310,
     marginBottom: 16,
     fontSize: 16,
     color: "#333",
   },
   botao: {
-    backgroundColor: "purple",
-    padding: 10,
+    backgroundColor: "eee",
     borderRadius: 4,
-    marginTop: 10,
+    marginTop: 20,
+    borderColor: "#4631B4",
+    borderWidth: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   botaoText: {
-    color: "white",
     fontWeight: "bold",
   },
   image: {
@@ -131,6 +136,6 @@ const styles = StyleSheet.create({
     height: 170,
     borderRadius: 50,
     marginTop: 20,
-    // marginRight: 10,
+    marginLeft: 10,
   },
 });
