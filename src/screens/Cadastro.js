@@ -1,6 +1,14 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import {
+  Alert,
+  Button,
+  StyleSheet,
+  TextInput,
+  View,
+  Pressable,
+  Text,
+} from "react-native";
 import { auth } from "../../firebaseConfig";
 import * as ImagePicker from "expo-image-picker";
 
@@ -88,6 +96,8 @@ export default function Cadastro({ navigation }) {
   return (
     <View style={estilos.container}>
       <View style={estilos.formulario}>
+        {imagem && <Image source={{ uri: imagem }} style={styles.image} />}
+        <Button title="Escolher Foto" />
         <TextInput
           placeholder="Nome"
           style={estilos.input}
@@ -106,10 +116,11 @@ export default function Cadastro({ navigation }) {
           secureTextEntry
           onChangeText={(valor) => setSenha(valor)}
         />
-        {imagem && <Image source={{ uri: imagem }} style={styles.image} />}
-        <Button onPress={pickImage} title="Escolher Foto" />
+
         <View style={estilos.botoes}>
-          <Button onPress={cadastrar} title="Cadastre-se" color="blue" />
+          <Pressable style={estilos.botaoCadastro} onPress={cadastrar}>
+            <Text style={estilos.textoBotaoCadastro}>Cadastre-se</Text>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -127,15 +138,33 @@ const estilos = StyleSheet.create({
     width: "80%",
   },
   input: {
-    backgroundColor: "white",
-    marginVertical: 8,
-    padding: 8,
-    borderRadius: 4,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
+    width: "100%",
+    marginBottom: 16,
+    fontSize: 16,
+    color: "#333",
   },
   botoes: {
     marginVertical: 8,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  botaoCadastro: {
+    backgroundColor: "#4A235A",
+    borderColor: "#4A235A",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 2,
+    marginHorizontal: 10,
+  },
+  textoBotaoCadastro: {
+    color: "#E6E6FA",
   },
 });

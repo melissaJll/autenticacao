@@ -1,22 +1,28 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Inicial({ navigation }) {
   return (
     <View style={estilos.container}>
       <View style={estilos.introducao}>
-        <Text style={estilos.subtitulo}>Autenticação com Firebase</Text>
+        <Text style={estilos.subtitulo}>Perfil com Firebase</Text>
       </View>
       <View style={estilos.botoes}>
-        <Button
-          title="Entre"
-          color="green"
+        <Pressable
+          style={[estilos.botao, estilos.botaoEntre]}
           onPress={() => navigation.navigate("Login")}
-        />
-        <Button
-          title="Cadastre-se"
-          color="blue"
+        >
+          <Text style={[estilos.textoBotao, estilos.textoBotaoEntre]}>
+            Entre
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[estilos.botao, estilos.botaoCadastre]}
           onPress={() => navigation.navigate("Cadastro")}
-        />
+        >
+          <Text style={[estilos.textoBotao, estilos.textoBotaoCadastre]}>
+            Cadastre-se
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -26,28 +32,45 @@ const estilos = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     padding: 16,
+    justifyContent: "",
   },
   introducao: {
-    backgroundColor: "#4A235A",
     width: "100%",
     padding: 8,
-    borderRadius: 4,
-  },
-  titulo: {
-    textAlign: "center",
-    fontSize: 32,
-    color: "white",
+    marginBottom: 16,
   },
   subtitulo: {
-    textAlign: "center",
-    color: "white",
+    textAlign: "left",
+    fontSize: 25,
   },
   botoes: {
-    marginVertical: 8,
-    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    marginTop: 60,
+  },
+  botao: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 2,
+    marginHorizontal: 10,
+  },
+  botaoEntre: {
+    backgroundColor: "#4A235A",
+    borderColor: "#4A235A",
+  },
+  botaoCadastre: {
+    backgroundColor: "#E6E6FA",
+    borderColor: "#4631B4",
+  },
+  textoBotao: {
+    fontSize: 16,
+    textAlign: "center",
+  },
+  textoBotaoEntre: {
+    color: "#E6E6FA",
+  },
+  textoBotaoCadastre: {
+    color: "#4631B4",
   },
 });

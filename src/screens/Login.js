@@ -1,4 +1,12 @@
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import {
+  Alert,
+  Button,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+} from "react-native";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithCredential } from "firebase/auth";
 
@@ -58,7 +66,10 @@ export default function Login({ navigation }) {
             secureTextEntry
           />
           <View style={estilos.botoes}>
-            <Button onPress={login} title="Entre" color="green" />
+            <Pressable onPress={login} style={estilos.botaoEntre}>
+              <Text style={estilos.textoBotaoEntre}>Entre</Text>
+            </Pressable>
+
             <Button
               title="Recuperar Senha"
               color="gray"
@@ -82,16 +93,35 @@ const estilos = StyleSheet.create({
     marginBottom: 32,
     width: "80%",
   },
+
   input: {
-    backgroundColor: "white",
-    marginVertical: 8,
-    padding: 8,
-    borderRadius: 4,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
+    width: "100%",
+    marginBottom: 16,
+    fontSize: 16,
+    color: "#333",
   },
   botoes: {
     marginVertical: 8,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  botaoEntre: {
+    backgroundColor: "#4A235A",
+    borderColor: "#4A235A",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 2,
+    marginHorizontal: 10,
+  },
+  textoBotaoEntre: {
+    color: "#E6E6FA",
   },
 });

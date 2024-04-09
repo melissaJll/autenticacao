@@ -37,7 +37,7 @@ export default function App() {
             options={{
               title: "Entre com suas credenciais",
 
-              headerStyle: { backgroundColor: "green" },
+              headerStyle: { backgroundColor: "#8873c9" },
 
               headerTintColor: "#fff",
             }}
@@ -49,7 +49,7 @@ export default function App() {
             options={{
               title: "Cadastre-se para ter acesso",
 
-              headerStyle: { backgroundColor: "blue" },
+              headerStyle: { backgroundColor: "#8873c9" },
 
               headerTintColor: "#fff",
             }}
