@@ -2,11 +2,14 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
 import { auth } from "../../firebaseConfig";
+import * as ImagePicker from "react-native-image-picker";
 
 export default function Cadastro({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [nome, setNome] = useState("");
+
+  const [imagem, setImagem] = useState(null);
 
   const cadastrar = async () => {
     if (!email || !senha || !nome) {
@@ -21,10 +24,16 @@ export default function Cadastro({ navigation }) {
         senha
       );
 
+      // Foto e nome do current userr
       if (contaUsuario.user) {
-        await updateProfile(auth.currentUser, { displayName: nome });
-        // teste user {displayName : "undefined"}
-        console.log(contaUsuario.user);
+        // Fazer upload no firestore
+        const urlImagem = await uploadImagemFirebaseStorage(imagem);
+
+        // Atualize o perfil do usuário com o nome e a URL da imagem
+        await updateProfile(auth.currentUser, {
+          displayName: nome,
+          photoURL: urlImagem,
+        });
       }
 
       Alert.alert("Cadastro", " Seu cadastro foi concluido com sucesso!", [
@@ -60,6 +69,20 @@ export default function Cadastro({ navigation }) {
       }
       Alert.alert("Ops!", mensagem);
     }
+
+    const escolhaImagem = () => {
+      ImagePicker.launchImageLibrary({ mediaType: "photo" }, (response) => {
+        if (!response.didCancel) {
+          setImagem(response.uri);
+        }
+      });
+    };
+
+    // Função para fazer upload da imagem para o Firebase Storage
+    const uploadImagemFirebaseStorage = async (imagem) => {
+      // Código para fazer upload da imagem para o Firebase Storage
+      // Retorne a URL da imagem após o upload
+    };
   };
 
   return (
@@ -83,6 +106,8 @@ export default function Cadastro({ navigation }) {
           secureTextEntry
           onChangeText={(valor) => setSenha(valor)}
         />
+        {imagem && <Image source={{ uri: imagem }} style={styles.image} />}
+        <Button onPress={pickImage} title="Escolher Foto" />
         <View style={estilos.botoes}>
           <Button onPress={cadastrar} title="Cadastre-se" color="blue" />
         </View>
