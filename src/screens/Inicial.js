@@ -4,7 +4,6 @@ export default function Inicial({ navigation }) {
   return (
     <View style={estilos.container}>
       <View style={estilos.introducao}>
-        <Text style={estilos.titulo}>React Native</Text>
         <Text style={estilos.subtitulo}>Autenticação com Firebase</Text>
       </View>
       <View style={estilos.botoes}>
