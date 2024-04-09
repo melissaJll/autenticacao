@@ -1,4 +1,13 @@
-import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+  Pressable,
+  Image,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { auth } from "../../firebaseConfig";
 import { updateEmail, updateProfile } from "firebase/auth";
@@ -52,18 +61,29 @@ export default function Perfil() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={nome}
-        onChangeText={setNome}
-        placeholder="Nome"
-      />
-      <TextInput
-        style={[styles.input, { backgroundColor: "lightgray" }]}
-        value={email}
-        placeholder="E-mail"
-        editable={false}
-      />
+      <View style={styles.containerFoto}>
+        <Image
+          source={{ uri: "https://via.placeholder.com/300" || profilePicture }}
+          style={[styles.image, { borderRadius: 85, backgroundColor: "gray" }]}
+        />
+        <Pressable style={styles.botao}>
+          <Text style={styles.botaoText}>Selecionar foto de perfil</Text>
+        </Pressable>
+      </View>
+      <View style={styles.containerInput}>
+        <TextInput
+          style={styles.input}
+          value={nome}
+          onChangeText={setNome}
+          placeholder="Nome"
+        />
+        <TextInput
+          style={[styles.input, { backgroundColor: "lightgray" }]}
+          value={email}
+          placeholder="E-mail"
+          editable={false}
+        />
+      </View>
 
       <Button title="Salvar" onPress={salvarPerfil} />
     </View>
@@ -73,15 +93,44 @@ export default function Perfil() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
+
     alignItems: "center",
     justifyContent: "center",
   },
+  containerInput: {
+    marginTop: 80,
+  },
+  // containerFoto: {
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  // },
   input: {
-    backgroundColor: "white",
-    marginVertical: 8,
-    padding: 8,
-    borderRadius: 4,
+    backgroundColor: "#f4f4f4",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
     width: "80%",
+    marginBottom: 16,
+    fontSize: 16,
+    color: "#333",
+  },
+  botao: {
+    backgroundColor: "purple",
+    padding: 10,
+    borderRadius: 4,
+    marginTop: 10,
+  },
+  botaoText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  image: {
+    width: 170,
+    height: 170,
+    borderRadius: 50,
+    marginTop: 20,
+    // marginRight: 10,
   },
 });
