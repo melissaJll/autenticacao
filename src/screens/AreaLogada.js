@@ -22,19 +22,19 @@ export default function AreaLogada({ navigation }) {
   return (
     <View style={estilos.container}>
       <View style={estilos.topo}>
+        <View style={estilos.geral}>
+          <Text>Você está na área logada.</Text>
+        </View>
         <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
         <Text>Seu email é: </Text>
         <Text style={{ fontWeight: "bold" }}>{email}</Text>
-        <Button onPress={logout} title="Logout" color="#D35400" />
+        <Button
+          onPress={() => navigation.navigate("Perfil")}
+          title="Perfil"
+          color="#D35400"
+        />
       </View>
-      <View style={estilos.geral}>
-        <Text>Você está na área logada.</Text>
-      </View>
-      <Button
-        onPress={() => navigation.navigate("Perfil")}
-        title="perfil"
-        color="#D35400"
-      />
+      <Button onPress={logout} title="Logout" color="#D35400" />
     </View>
   );
 }
