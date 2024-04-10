@@ -56,12 +56,6 @@ export default function Login({ navigation }) {
     <>
       <View style={estilos.container}>
         <View style={estilos.formulario}>
-          <AntDesign
-            name="minussquareo"
-            size={72}
-            color="purple"
-            style={estilos.logo}
-          />
           <Text style={estilos.logo}>CycleTrack</Text>
 
           <TextInput
@@ -118,12 +112,20 @@ const estilos = StyleSheet.create({
     justifyContent: "center",
     // sombra
     shadowColor: "black",
-    shadowOffset: { width: 0, height: 4 }, // Sombra para baixo (y = 5)
+    shadowOffset: { width: 2, height: 4 }, // Sombra para baixo (y = 5)
     shadowOpacity: 0.2,
   },
   logo: {
-    marginBottom: 20,
+    marginBottom: 25,
     marginTop: -20,
+
+    fontSize: 35,
+    color: "#3D2498",
+    fontWeight: "bold",
+
+    shadowColor: "grey",
+    shadowOffset: { width: 3, height: 5 }, // Sombra para baixo (y = 5)
+    shadowOpacity: 0.2,
   },
 
   input: {
@@ -131,7 +133,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 14,
+    paddingVertical: 12,
     width: "100%",
     marginBottom: 16,
     color: "#333",

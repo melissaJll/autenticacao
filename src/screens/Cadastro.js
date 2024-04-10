@@ -214,7 +214,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 14,
+    paddingVertical: 13,
 
     width: "100%",
     marginBottom: 16,
