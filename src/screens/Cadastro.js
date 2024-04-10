@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { auth } from "../../firebaseConfig";
 import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library";
+// import * as MediaLibrary from "expo-media-library";
 import * as FileSystem from "expo-file-system";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -151,7 +151,10 @@ export default function Cadastro({ navigation }) {
       <StatusBar barStyle="dark-content" />
       <View style={estilos.formulario}>
         {imagem && (
-          <Image source={{ uri: imagem }} style={{ width: 300, height: 300 }} />
+          <Image
+            source={{ uri: imagem }}
+            style={{ width: 260, height: 260, borderRadius: 5 }}
+          />
         )}
 
         <Pressable style={estilos.botaoFoto} onPress={escolhaImagem}>
@@ -192,11 +195,10 @@ const estilos = StyleSheet.create({
     justifyContent: "center",
   },
   formulario: {
-    width: "80%",
     marginTop: -10,
     marginBottom: 22,
     width: "85%",
-    height: "75%",
+    height: "80%",
     backgroundColor: "rgba(255, 255, 255, 0.88)",
     borderRadius: 20,
     padding: 22,
