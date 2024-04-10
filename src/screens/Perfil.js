@@ -16,11 +16,14 @@ import { updateEmail, updateProfile } from "firebase/auth";
 import * as ImagePicker from "expo-image-picker";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+import { ActivityIndicator } from "react-native";
+
 export default function Perfil() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [fotoPerfil, setfotoPerfil] = useState("");
   const storage = getStorage();
+  const [carregandoImagem, setCarregandoImagem] = useState(false);
 
   useEffect(() => {
     const carregarUsuarioAtual = async () => {
@@ -43,16 +46,16 @@ export default function Perfil() {
         throw new Error("Usuário não autenticado.");
       }
 
+      // Chamando a função para tualizar a foto de perfil
+      if (fotoPerfil) {
+        await atualizarFotoPerfil(usuarioAtual.uid, fotoPerfil);
+      }
+
       // Atualizar o email do usuário
       await updateEmail(usuarioAtual, email);
 
       //  Chamando a função para Atualizar o nome do usuário
       await atualizarNome(nome);
-
-      // Chamando a função para tualizar a foto de perfil
-      if (fotoPerfil) {
-        await atualizarFotoPerfil(usuarioAtual.uid, fotoPerfil);
-      }
 
       Alert.alert("Perfil atualizado com sucesso!");
     } catch (error) {
@@ -73,27 +76,41 @@ export default function Perfil() {
   };
 
   const escolhaImagem = async () => {
-    const resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 1,
-    });
+    try {
+      setCarregandoImagem(true); // Define o estado de carregamento como true
+      //acesso a galeria para escolher e definir a foto
+      const resultado = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 1,
+      });
 
-    // Se o resultado não for cancelado
-    if (!resultado.canceled) {
-      setfotoPerfil(resultado.assets[0].uri);
+      if (!resultado.canceled) {
+        setfotoPerfil(resultado.assets[0].uri);
+      }
+    } catch (error) {
+      console.error("Erro ao escolher uma imagem:", error);
+    } finally {
+      setCarregandoImagem(false); // Define o estado de carregamento como false ao finalizar
     }
   };
 
   const atualizarFotoPerfil = async (uid, fotoPerfil) => {
     try {
-      const imagemRef = ref(storage, `fotosPerfil/${uid}`);
-      // a imagem é carregada para o Firebase Storage com
-      await uploadString(imagemRef, fotoPerfil.data, "data_url");
+      const { uri } = await FileSystem.getInfoAsync(fotoPerfil); // Obtém o URI da imagem
 
+      // Esta linha faz uma requisição para o URI da imagem utilizando a função fetch, obtém os dados da imagem.
+      const response = await fetch(uri); // Realiza uma requisição para obter a imagem
+
+      const blob = await response.blob();
+      const imageName = fotoPerfil.substring(fotoPerfil.lastIndexOf("/") + 1);
+
+      const storageRef = ref(storage, imageName); //CRIA uma referência no Firebase usando o nome do arquivo como o caminho para a referência.
+
+      await uploadBytes(storageRef, blob); // a imagem é carregada para o Firebase Storage, faz o upload dos bytes do objeto Blob usando a referência storageRef.
       // Pegando url de nova foto selecionada
-      const fotoURL = await getDownloadURL(imagemRef);
+      const fotoURL = await getDownloadURL(storageRef);
 
       // Atualizar o nome do usuário com parametro que será state fotoUrl
       await updateProfile(auth.currentUser, { photoURL: fotoURL });
@@ -112,6 +129,9 @@ export default function Perfil() {
           source={{ uri: fotoPerfil || "https://via.placeholder.com/300" }}
           style={[styles.image, { borderRadius: 85, backgroundColor: "gray" }]}
         />
+        {carregandoImagem && (
+          <ActivityIndicator style={styles.loadingIndicator} />
+        )}
         <Pressable onPress={escolhaImagem} style={styles.botao}>
           <Text style={styles.botaoText}>Selecionar foto de perfil</Text>
         </Pressable>
