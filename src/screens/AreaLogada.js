@@ -44,7 +44,7 @@ export default function AreaLogada({ navigation }) {
       <View style={estilos.topo}>
         <View style={estilos.infos}>
           <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
-          <Text style={estilos.nomeUsuario}>{displayName} Nome completo</Text>
+          <Text style={estilos.nomeUsuario}>{displayName} </Text>
         </View>
         <Button
           onPress={() => navigation.navigate("Perfil")}
@@ -70,6 +70,9 @@ const estilos = StyleSheet.create({
     borderStyle: "dashed",
     borderRadius: 5,
   },
+  infos: {
+    marginLeft: 5,
+  },
   bemVindo: {
     fontSize: 24,
     marginVertical: 16,
@@ -82,7 +85,7 @@ const estilos = StyleSheet.create({
   image: {
     width: 64,
     height: 64,
-    marginTop: 25,
+    marginTop: 40,
 
     position: "absolute",
     right: 20,
