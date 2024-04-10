@@ -45,8 +45,6 @@ export default function AreaLogada({ navigation }) {
         <View style={estilos.infos}>
           <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
           <Text style={estilos.nomeUsuario}>{displayName} Nome completo</Text>
-          <Text style={estilos.nomeUsuario}>{email} Nome completo</Text>
-          <Text style={estilos.nomeUsuario}>{photoURL} Nome completo</Text>
         </View>
         <Button
           onPress={() => navigation.navigate("Perfil")}
