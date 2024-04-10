@@ -15,6 +15,7 @@ import { updateEmail, updateProfile } from "firebase/auth";
 
 import * as ImagePicker from "expo-image-picker";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as FileSystem from "expo-file-system";
 
 import { ActivityIndicator } from "react-native";
 
@@ -41,6 +42,7 @@ export default function Perfil() {
   const salvarPerfil = async () => {
     try {
       const usuarioAtual = auth.currentUser;
+      const uid = auth.currentUser.uid;
 
       if (!usuarioAtual) {
         throw new Error("Usuário não autenticado.");
@@ -48,11 +50,11 @@ export default function Perfil() {
 
       // Chamando a função para tualizar a foto de perfil
       if (fotoPerfil) {
-        await atualizarFotoPerfil(usuarioAtual.uid, fotoPerfil);
+        await atualizarFotoPerfil(uid, fotoPerfil);
       }
 
       // Atualizar o email do usuário
-      await updateEmail(usuarioAtual, email);
+      //await updateEmail(usuarioAtual, email);
 
       //  Chamando a função para Atualizar o nome do usuário
       await atualizarNome(nome);
