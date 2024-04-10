@@ -134,7 +134,11 @@ export default function Perfil() {
           style={[styles.image, { borderRadius: 85, backgroundColor: "gray" }]}
         />
         {carregandoImagem && (
-          <ActivityIndicator style={styles.loadingIndicator} />
+          <ActivityIndicator
+            size="large"
+            color="#3D2498"
+            style={styles.loadingIndicator}
+          />
         )}
         <Pressable onPress={escolhaImagem} style={styles.botao}>
           <Text style={styles.botaoText}>Selecionar foto de perfil</Text>
