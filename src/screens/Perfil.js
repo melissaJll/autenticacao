@@ -83,7 +83,10 @@ export default function Perfil() {
           placeholder="Nome"
         />
         <TextInput
-          style={[styles.input, { backgroundColor: "lightgray" }]}
+          style={[
+            styles.input,
+            { backgroundColor: "lightgray", borderColor: "#5F5E65" },
+          ]}
           value={email}
           placeholder="E-mail"
           editable={false}
@@ -112,8 +115,8 @@ const styles = StyleSheet.create({
   // },
   input: {
     backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#8279BD",
+    borderWidth: 1.5,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 14,
@@ -122,7 +125,6 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   botao: {
-    backgroundColor: "eee",
     borderRadius: 4,
     marginTop: 20,
     borderColor: "#4631B4",
@@ -132,6 +134,7 @@ const styles = StyleSheet.create({
   },
   botaoText: {
     fontWeight: "bold",
+    // color: "#fff",
   },
   image: {
     width: 170,
@@ -139,5 +142,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginTop: 20,
     marginLeft: 10,
+
+    borderWidth: 4,
+    borderRadius: 50,
+    borderColor: "#EBE6F6",
+
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 4 }, // Sombra para baixo (y = 5)
+    shadowOpacity: 0.2,
   },
 });
