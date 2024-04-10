@@ -25,6 +25,7 @@ export default function Perfil() {
   const [fotoPerfil, setfotoPerfil] = useState("");
   const storage = getStorage();
   const [carregandoImagem, setCarregandoImagem] = useState(false);
+  const [atualizarFoto, setAtualizarFoto] = useState(false);
 
   useEffect(() => {
     const carregarUsuarioAtual = async () => {
@@ -49,7 +50,7 @@ export default function Perfil() {
       }
 
       // Chamando a função para tualizar a foto de perfil
-      if (fotoPerfil) {
+      if (atualizarFoto) {
         await atualizarFotoPerfil(uid, fotoPerfil);
       }
 
@@ -90,6 +91,7 @@ export default function Perfil() {
 
       if (!resultado.canceled) {
         setfotoPerfil(resultado.assets[0].uri);
+        setAtualizarFoto(true); // verifica se o usuario vai alterar a foto
       }
     } catch (error) {
       console.error("Erro ao escolher uma imagem:", error);
