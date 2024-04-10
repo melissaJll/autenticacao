@@ -59,13 +59,12 @@ const estilos = StyleSheet.create({
   botao: {
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 20,
     borderWidth: 2,
     marginHorizontal: 10,
   },
   botaoEntre: {
-    backgroundColor: "#4A235A",
-    borderColor: "#4A235A",
+    backgroundColor: "#3D2498",
+    borderColor: "#3D2498",
   },
   botaoCadastre: {
     backgroundColor: "#E6E6FA",

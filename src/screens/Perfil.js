@@ -116,10 +116,9 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 16,
+    paddingVertical: 14,
     width: 310,
     marginBottom: 16,
-    fontSize: 16,
     color: "#333",
   },
   botao: {

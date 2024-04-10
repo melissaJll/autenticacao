@@ -177,11 +177,9 @@ export default function Cadastro({ navigation }) {
           onChangeText={(valor) => setSenha(valor)}
         />
 
-        <View style={estilos.botoes}>
-          <Pressable style={estilos.botaoCadastro} onPress={carregarStorage}>
-            <Text style={estilos.textoBotaoCadastro}>Cadastre-se</Text>
-          </Pressable>
-        </View>
+        <Pressable style={estilos.botaoCadastro} onPress={carregarStorage}>
+          <Text style={estilos.textoBotaoCadastro}>Cadastrar</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -194,38 +192,46 @@ const estilos = StyleSheet.create({
     justifyContent: "center",
   },
   formulario: {
-    marginVertical: 16,
     width: "80%",
+    marginTop: -10,
+    marginBottom: 22,
+    width: "85%",
+    height: "75%",
+    backgroundColor: "rgba(255, 255, 255, 0.88)",
+    borderRadius: 20,
+    padding: 22,
+    alignItems: "center",
+    justifyContent: "center",
+
+    // sombra
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 4 }, // Sombra para baixo (y = 5)
+    shadowOpacity: 0.2,
   },
   input: {
     backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#3D2498",
+    borderWidth: 1.5,
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 16,
+    paddingVertical: 14,
+
     width: "100%",
     marginBottom: 16,
-    fontSize: 16,
     color: "#333",
   },
-  botoes: {
-    marginVertical: 8,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
+
   botaoCadastro: {
-    backgroundColor: "#4A235A",
-    borderColor: "#4A235A",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    borderWidth: 2,
-    marginHorizontal: 10,
+    backgroundColor: "#3D2498",
+    paddingVertical: 12,
+    paddingHorizontal: 50,
+    borderRadius: 8,
+    marginTop: 12,
   },
   textoBotaoCadastro: {
     color: "#E6E6FA",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 
   textoBotaoFoto: {

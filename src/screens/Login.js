@@ -14,6 +14,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { AntDesign } from "@expo/vector-icons";
+
 export default function Login({ navigation }) {
   //   GoogleSignin.configure({
   //     //   Insira o seu Web Client ID aqui
@@ -54,7 +56,16 @@ export default function Login({ navigation }) {
     <>
       <View style={estilos.container}>
         <View style={estilos.formulario}>
+          <AntDesign
+            name="minussquareo"
+            size={72}
+            color="purple"
+            style={estilos.logo}
+          />
+          <Text style={estilos.logo}>CycleTrack</Text>
+
           <TextInput
+            keyboardType="email-address"
             onChangeText={(valor) => setEmail(valor)}
             placeholder="E-mail"
             style={estilos.input}
@@ -65,17 +76,22 @@ export default function Login({ navigation }) {
             style={estilos.input}
             secureTextEntry
           />
-          <View style={estilos.botoes}>
-            <Pressable onPress={login} style={estilos.botaoEntre}>
-              <Text style={estilos.textoBotaoEntre}>Entre</Text>
-            </Pressable>
 
-            <Button
-              title="Recuperar Senha"
-              color="gray"
-              onPress={() => navigation.navigate("RecuperarSenha")}
-            ></Button>
-          </View>
+          <Pressable onPress={login} style={estilos.botaoEntre}>
+            <Text style={estilos.textoBotaoEntre}>Entrar</Text>
+          </Pressable>
+
+          <Pressable
+            style={estilos.botaoEsqueciSenha}
+            onPress={() => navigation.navigate("RecuperarSenha")}
+          >
+            <View style={estilos.esqueciSenha}>
+              <Text>Não possui conta?</Text>
+              <Text style={estilos.textoBotaoEsqueciSenha}>
+                Recuperar Senha
+              </Text>
+            </View>
+          </Pressable>
         </View>
       </View>
     </>
@@ -90,38 +106,60 @@ const estilos = StyleSheet.create({
     justifyContent: "center",
   },
   formulario: {
-    marginBottom: 32,
-    width: "80%",
+    marginBottom: 22,
+    marginTop: -10,
+    width: "85%",
+    height: "75%",
+
+    backgroundColor: "rgba(255, 255, 255, 0.88)",
+    borderRadius: 20,
+    padding: 22,
+    alignItems: "center",
+    justifyContent: "center",
+    // sombra
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 4 }, // Sombra para baixo (y = 5)
+    shadowOpacity: 0.2,
+  },
+  logo: {
+    marginBottom: 20,
+    marginTop: -20,
   },
 
   input: {
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#3D2498",
+    borderWidth: 1.5,
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 16,
+    paddingVertical: 14,
     width: "100%",
     marginBottom: 16,
-    fontSize: 16,
     color: "#333",
   },
-  botoes: {
-    marginVertical: 8,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
+
   botaoEntre: {
-    backgroundColor: "#4A235A",
-    borderColor: "#4A235A",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    borderWidth: 2,
+    backgroundColor: "#3D2498",
+    paddingVertical: 12,
+    paddingHorizontal: 50,
+    borderRadius: 8,
     marginHorizontal: 10,
   },
   textoBotaoEntre: {
     color: "#E6E6FA",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  esqueciSenha: {
+    marginVertical: 20,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  botaoEsqueciSenha: {
+    backgroundColor: "transparent",
+  },
+  textoBotaoEsqueciSenha: {
+    color: "#1D93E9",
+    fontSize: 16,
   },
 });
