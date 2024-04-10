@@ -13,10 +13,14 @@ import { useState, useEffect } from "react";
 import { auth } from "../../firebaseConfig";
 import { updateEmail, updateProfile } from "firebase/auth";
 
+import * as ImagePicker from "expo-image-picker";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 export default function Perfil() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [fotoPerfil, setfotoPerfil] = useState("");
+  const storage = getStorage();
 
   useEffect(() => {
     const carregarUsuarioAtual = async () => {
@@ -42,8 +46,13 @@ export default function Perfil() {
       // Atualizar o email do usuário
       await updateEmail(usuarioAtual, email);
 
-      // Atualizar o nome do usuário
+      //  Chamando a função para Atualizar o nome do usuário
       await atualizarNome(nome);
+
+      // Chamando a função para tualizar a foto de perfil
+      if (fotoPerfil) {
+        await atualizarFotoPerfil(usuarioAtual.uid, fotoPerfil);
+      }
 
       Alert.alert("Perfil atualizado com sucesso!");
     } catch (error) {
@@ -54,12 +63,44 @@ export default function Perfil() {
     }
   };
 
+  // função chamada em salvar que altera o nome
   const atualizarNome = async (novoNome) => {
     const usuarioAtual = auth.currentUser;
     if (!usuarioAtual) {
       throw new Error("Usuário não autenticado.");
     }
     await updateProfile(usuarioAtual, { displayName: novoNome });
+  };
+
+  const escolhaImagem = async () => {
+    const resultado = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 1,
+    });
+
+    // Se o resultado não for cancelado
+    if (!resultado.canceled) {
+      setfotoPerfil(resultado.assets[0].uri);
+    }
+  };
+
+  const atualizarFotoPerfil = async (uid, fotoPerfil) => {
+    try {
+      const imagemRef = ref(storage, `fotosPerfil/${uid}`);
+      // a imagem é carregada para o Firebase Storage com
+      await uploadString(imagemRef, fotoPerfil.data, "data_url");
+
+      // Pegando url de nova foto selecionada
+      const fotoURL = await getDownloadURL(imagemRef);
+
+      // Atualizar o nome do usuário com parametro que será state fotoUrl
+      await updateProfile(auth.currentUser, { photoURL: fotoURL });
+    } catch (error) {
+      console.error("Erro ao atualizar foto de perfil:", error);
+      throw error;
+    }
   };
 
   return (
@@ -71,7 +112,7 @@ export default function Perfil() {
           source={{ uri: fotoPerfil || "https://via.placeholder.com/300" }}
           style={[styles.image, { borderRadius: 85, backgroundColor: "gray" }]}
         />
-        <Pressable style={styles.botao}>
+        <Pressable onPress={escolhaImagem} style={styles.botao}>
           <Text style={styles.botaoText}>Selecionar foto de perfil</Text>
         </Pressable>
       </View>
