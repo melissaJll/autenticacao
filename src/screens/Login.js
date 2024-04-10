@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   Text,
+  ActivityIndicator,
 } from "react-native";
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithCredential } from "firebase/auth";
@@ -17,14 +18,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Login({ navigation }) {
-  //   GoogleSignin.configure({
-  //     //   Insira o seu Web Client ID aqui
-  //     webClientId: "cycletrack-ts.firebaseapp.com",
-  //   });
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-
-  const [emailGoogle, setEmailGoogle] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = async () => {
     if (!email || !senha) {
@@ -32,6 +28,7 @@ export default function Login({ navigation }) {
       return;
     }
     try {
+      setLoading(true);
       await signInWithEmailAndPassword(auth, email, senha);
       navigation.replace("AreaLogada");
     } catch (error) {
@@ -49,6 +46,8 @@ export default function Login({ navigation }) {
           break;
       }
       Alert.alert("Ops!", mensagem);
+    } finally {
+      setLoading(false); // Desativa o spinner
     }
   };
 
@@ -57,6 +56,8 @@ export default function Login({ navigation }) {
       <View style={estilos.container}>
         <View style={estilos.formulario}>
           <Text style={estilos.logo}>CycleTrack</Text>
+
+          <ActivityIndicator animating={loading} size="large" color="#3D2498" />
 
           <TextInput
             keyboardType="email-address"
