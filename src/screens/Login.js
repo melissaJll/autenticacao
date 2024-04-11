@@ -81,7 +81,7 @@ export default function Login({ navigation }) {
             onPress={() => navigation.navigate("RecuperarSenha")}
           >
             <View style={estilos.esqueciSenha}>
-              <Text>Não possui conta?</Text>
+              <Text>Esqueceu a senha?</Text>
               <Text style={estilos.textoBotaoEsqueciSenha}>
                 Recuperar Senha
               </Text>
