@@ -23,6 +23,7 @@ export default function Cadastro({ navigation }) {
   const [nome, setNome] = useState("");
 
   const [imagem, setImagem] = useState(null);
+  const [downloadURL, setDownloadURL] = useState(null);
   const storage = getStorage();
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
@@ -39,27 +40,29 @@ export default function Cadastro({ navigation }) {
     verificaPermissoes();
   }, []);
 
-  // Função para fazer upload da imagem para o Firebase Storage
-  const carregarStorage = async (imageUrl) => {
+  // Função para fazer upload da imagem para o Firebase Storage e depois enviar pela função Cadastrar
+  const carregarStorage = async () => {
     try {
-      const { uri } = await FileSystem.getInfoAsync(imagem); // Obtém o URI da imagem
-      const response = await fetch(uri); // Realiza uma requisição para obter a imagem
+      if (imagem) {
+        const { uri } = await FileSystem.getInfoAsync(imagem); // Obtém o URI da imagem
+        const response = await fetch(uri); // Realiza uma requisição para obter a imagem
 
-      const blob = await response.blob();
-      const imageName = imagem.substring(imagem.lastIndexOf("/") + 1);
+        const blob = await response.blob();
+        const imageName = imagem.substring(imagem.lastIndexOf("/") + 1);
 
-      if (!response.ok) {
-        throw new Error("Falha ao obter a imagem");
+        if (!response.ok) {
+          throw new Error("Falha ao obter a imagem");
+        }
+
+        const storageRef = ref(storage, imageName); // Cria uma referência para o local de armazenamento da imagem
+        await uploadBytes(storageRef, blob);
+
+        //downloadURL = recebe a url criada para imagem
+        const imagemURL = await getDownloadURL(storageRef);
+        setDownloadURL(imagemURL);
       }
 
-      //const imageName = imageUrl.split("/").pop(); // Extract the filename
-      // const imageRef = ref(storage, `images/${imageName}`);
-      const storageRef = ref(storage, imageName); // Cria uma referência para o local de armazenamento da imagem
-      await uploadBytes(storageRef, blob);
-
-      //downloadURL = recebe a url criada para imagem
-      const downloadURL = await getDownloadURL(storageRef);
-      cadastrar(downloadURL);
+      cadastrar(); //Cadastro dos demais dados
     } catch (error) {
       console.error(error);
       Alert.alert("Falha ao fazer upload da imagem", error.message); // Exibe um alerta indicando que ocorreu uma falha no upload
@@ -67,8 +70,8 @@ export default function Cadastro({ navigation }) {
   };
 
   // Dados inseridos no input, carregados pelo state e enviados pela função cadastrar
-  const cadastrar = async (downloadURL) => {
-    if (!email || !senha || !nome) {
+  const cadastrar = async () => {
+    if (!email || !senha || !nome || !imagem) {
       Alert.alert("Atenção", "Preecha todos os campos");
       return;
     }
