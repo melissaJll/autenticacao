@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { auth, provider } from "../../firebaseConfig";
-import { signInWithCredential } from "firebase/auth";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
