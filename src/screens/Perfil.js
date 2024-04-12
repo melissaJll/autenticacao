@@ -162,7 +162,7 @@ export default function Perfil() {
         />
       </View>
       <Pressable style={styles.botao} onPress={salvarPerfil}>
-        <Text>Salvar</Text>
+        <Text>Salvar Alterações</Text>
       </Pressable>
     </View>
   );
