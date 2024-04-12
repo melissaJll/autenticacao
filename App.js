@@ -1,5 +1,7 @@
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 
+import { useState, useEffect } from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,60 +18,72 @@ import Perfil from "./src/screens/Perfil";
 
 import RecuperarSenha from "./src/screens/RecuperarSenha";
 
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  // Estado para rastrear o status de login do usuário
+  const [isUserLoggedIn, setUserLoggedIn] = useState(false);
+
+  // Efeito para verificar o status de login do usuário ao montar o componente
+  useEffect(() => {
+    const auth = getAuth(); // Obtém a instância de autenticação
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUserLoggedIn(!!user); // Define isUserLoggedIn com base no estado de autenticação do usuário
+    });
+
+    return unsubscribe; // Limpa a inscrição quando o componente for desmontado
+  }, []);
+
   return (
     <SafeAreaView style={estilos.containerSafe}>
       <StatusBar />
 
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Inicial">
-          <Stack.Screen
-            name="Inicial"
-            component={Inicial}
-            options={{ headerShown: false }}
-          />
+        <Stack.Navigator
+          initialRouteName={isUserLoggedIn ? "AreaLogada" : "Login"}
+        >
+          {isUserLoggedIn ? (
+            <>
+              <Stack.Screen
+                name="AreaLogada"
+                component={AreaLogada}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Perfil"
+                component={Perfil}
+                options={{ headerShown: false }}
+              />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name="Inicial"
+                component={Inicial}
+                options={{ headerShown: false }}
+              />
+              {/* // Define a tela Home se o usuário estiver logado */}
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
 
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              title: "Entre com suas credenciais",
+              <Stack.Screen
+                name="Cadastro"
+                component={Cadastro}
+                options={{ headerShown: false }}
+              />
 
-              headerStyle: { backgroundColor: "#8873c9" },
-
-              headerTintColor: "#fff",
-            }}
-          />
-
-          <Stack.Screen
-            name="Cadastro"
-            component={Cadastro}
-            options={{
-              title: "Cadastre-se para ter acesso",
-
-              headerStyle: { backgroundColor: "#8873c9" },
-
-              headerTintColor: "#fff",
-            }}
-          />
-
-          <Stack.Screen
-            name="AreaLogada"
-            component={AreaLogada}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Perfil"
-            component={Perfil}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="RecuperarSenha"
-            component={RecuperarSenha}
-            options={{ headerShown: false }}
-          />
+              <Stack.Screen
+                name="RecuperarSenha"
+                component={RecuperarSenha}
+                options={{ headerShown: false }}
+              />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
