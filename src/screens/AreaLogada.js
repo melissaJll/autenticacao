@@ -34,17 +34,25 @@ export default function AreaLogada({ navigation }) {
   return (
     <View style={estilos.container}>
       <StatusBar barStyle="dark-content" />
-      <Pressable onPress={() => navigation.navigate("Perfil")} title="Perfil">
-        <Image
-          source={{ uri: photoURL || "https://via.placeholder.com/150" }}
-          style={[estilos.image, { borderRadius: 85, backgroundColor: "gray" }]}
-        />
-      </Pressable>
 
       <View style={estilos.topo}>
-        <View style={estilos.infos}>
-          <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
-          <Text style={estilos.nomeUsuario}>{displayName} </Text>
+        <View style={estilos.dadosUsuario}>
+          <View style={estilos.infos}>
+            <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
+            <Text style={estilos.nomeUsuario}>{displayName} </Text>
+          </View>
+          <Pressable
+            onPress={() => navigation.navigate("Perfil")}
+            title="Perfil"
+          >
+            <Image
+              source={{ uri: photoURL || "https://via.placeholder.com/150" }}
+              style={[
+                estilos.image,
+                { borderRadius: 85, backgroundColor: "#ad91cc" },
+              ]}
+            />
+          </Pressable>
         </View>
         <Button
           onPress={() => navigation.navigate("Perfil")}
@@ -52,7 +60,6 @@ export default function AreaLogada({ navigation }) {
           color="#D35400"
         />
       </View>
-      <Button onPress={logout} title="Logout" color="#D35400" />
     </View>
   );
 }
@@ -70,8 +77,13 @@ const estilos = StyleSheet.create({
     borderStyle: "dashed",
     borderRadius: 5,
   },
-  infos: {
-    marginLeft: 5,
+  dadosUsuario: {
+    flexDirection: "row",
+    backgroundColor: "red",
+    gap: 80,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 8,
   },
   bemVindo: {
     fontSize: 24,
@@ -85,11 +97,6 @@ const estilos = StyleSheet.create({
   image: {
     width: 64,
     height: 64,
-    marginTop: 40,
-
-    position: "absolute",
-    right: 20,
-    top: 20,
 
     borderWidth: 1,
     borderRadius: 50,
