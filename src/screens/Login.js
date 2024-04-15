@@ -7,8 +7,11 @@ import {
   View,
   Text,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { auth, provider } from "../../firebaseConfig";
+
+import Leaves from "../../assets/fundo.jpg";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
@@ -52,42 +55,54 @@ export default function Login({ navigation }) {
 
   return (
     <>
-      <View style={estilos.container}>
-        <View style={estilos.formulario}>
-          <Text style={estilos.logo}>CycleTrack</Text>
+      <ImageBackground source={Leaves} style={{ height: "100%" }}>
+        <View style={estilos.container}>
+          <View style={estilos.formulario}>
+            <Text style={estilos.logo}>CycleTrack</Text>
 
-          <ActivityIndicator animating={loading} size="large" color="#3D2498" />
+            <ActivityIndicator
+              animating={loading}
+              size="large"
+              color="#3D2498"
+            />
 
-          <TextInput
-            keyboardType="email-address"
-            onChangeText={(valor) => setEmail(valor)}
-            placeholder="E-mail"
-            style={estilos.input}
-          />
-          <TextInput
-            onChangeText={(valor) => setSenha(valor)}
-            placeholder="Senha"
-            style={estilos.input}
-            secureTextEntry
-          />
+            <TextInput
+              keyboardType="email-address"
+              onChangeText={(valor) => setEmail(valor)}
+              placeholder="E-mail"
+              style={estilos.input}
+            />
+            <TextInput
+              onChangeText={(valor) => setSenha(valor)}
+              placeholder="Senha"
+              style={estilos.input}
+              secureTextEntry
+            />
 
-          <Pressable onPress={login} style={estilos.botaoEntre}>
-            <Text style={estilos.textoBotaoEntre}>Entrar</Text>
-          </Pressable>
+            <Pressable onPress={login} style={estilos.botaoEntre}>
+              <Text style={estilos.textoBotaoEntre}>Entrar</Text>
+            </Pressable>
 
-          <Pressable
-            style={estilos.botaoEsqueciSenha}
-            onPress={() => navigation.navigate("RecuperarSenha")}
-          >
-            <View style={estilos.esqueciSenha}>
-              <Text>Esqueceu a senha?</Text>
-              <Text style={estilos.textoBotaoEsqueciSenha}>
-                Recuperar Senha
-              </Text>
-            </View>
-          </Pressable>
+            <Pressable
+              style={estilos.botaoEsqueciSenha}
+              onPress={() => navigation.navigate("Cadastro")}
+            >
+              <Text>Cadastre-se</Text>
+            </Pressable>
+
+            <Pressable
+              style={estilos.botaoEsqueciSenha}
+              onPress={() => navigation.navigate("RecuperarSenha")}
+            >
+              <View style={estilos.esqueciSenha}>
+                <Text style={estilos.textoBotaoEsqueciSenha}>
+                  Recuperar Senha
+                </Text>
+              </View>
+            </Pressable>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </>
   );
 }
@@ -105,7 +120,7 @@ const estilos = StyleSheet.create({
     width: "85%",
     height: "75%",
 
-    backgroundColor: "rgba(255, 255, 255, 0.88)",
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
     borderRadius: 20,
     padding: 22,
     alignItems: "center",
